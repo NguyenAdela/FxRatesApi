@@ -1,0 +1,118 @@
+/* Ensures the HTML container is centered and its maximum width is defined */
+.container {
+    max-width: 600px;  /* Adjust the max width of the form */
+    margin: 0 auto;  /* Center the form horizontally */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Arranges form elements in a column and defines the gap between them */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Styles the form labels */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding-left: 2px;  /* Consistent padding after labels */
+}
+
+/* Styles the form inputs */
+input[type="date"],
+select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;  /* Full width */
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Adjust margin between fields */
+}
+
+/* Specific margins defined for start and end date form inputs */
+#start_date, #end_date {
+    margin-bottom: 5px;
+}
+
+/* Margin for currency dropdown */
+#currency {
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+/* Styles for the form's submit button, both static and when hovered over */
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Styles for the form's result area */
+#result {
+    margin-top: 20px;
+    font-size: 16px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Definitions for animation classes to show and hide elements */
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hidden {
+    opacity: 0;
+    height: 0;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+/* Styles for the results table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}

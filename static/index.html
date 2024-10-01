@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FX Rate Finder</title>
+    <!-- Link to the external CSS stylesheet -->
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<!-- This is the main container for the form -->
+<div class="container">
+    <!-- The title of the page -->
+    <h1>FX Rates from ECB</h1>
+    <!-- This form collects input from the user -->
+    <form id="fxForm">
+        <!-- Dropdown to select between single date or a range of dates -->
+        <label for="queryType">Select Query Type:</label>
+        <select id="queryType" name="type" required>
+            <option value="single">Single Date</option>
+            <option value="range">Time Series</option>
+        </select>
+        <!-- An input field for selecting a single date -->
+        <div id="singleDateField" class="visible">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+        </div>
+        <!-- Input fields for selecting a range of dates -->
+        <div id="rangeDateFields" class="hidden">
+            <div class="dateField">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate">
+            </div>
+            <div class="dateField">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate">
+            </div>
+        </div>
+        <!-- A dropdown to select the currency -->
+        <label for="currency">Currency:</label>
+        <select id="currency" name="currency" required>
+            <!-- Currencies will be populated here dynamically -->
+        </select>
+        <!-- The button to submit the form -->
+        <button type="submit">Get FX Rate</button>
+    </form>
+    <!-- A container where the results will be displayed -->
+    <div id="result">
+        <!-- Results will be displayed here -->
+    </div>
+</div>
+<!-- Link to the external JavaScript file -->
+<script src="static/script.js"></script>
+</body>
+</html>
