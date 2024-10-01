@@ -1,6 +1,10 @@
 // Event listener for when the HTML has completely loaded and parsed
 document.addEventListener('DOMContentLoaded', populateCurrencyOptions);
 
+/**
+ * Populates the currency options in a select dropdown by fetching currencies from an endpoint.
+ * Updates the UI with the fetched currency options.
+ */
 async function populateCurrencyOptions() {
     try {
         const response = await fetch('/currencies');
@@ -21,6 +25,9 @@ async function populateCurrencyOptions() {
     handleFormSubmission();
 }
 
+/**
+ * Handles the visibility of query-related elements based on the selected query type.
+ */
 function handleQueryVisibility() {
     const queryTypeSelect = document.getElementById('queryType');
     const singleDateField = document.getElementById('singleDateField');
@@ -32,6 +39,15 @@ function handleQueryVisibility() {
     });
 }
 
+/**
+ * Toggles the visibility of date fields based on the query type.
+ *
+ * @param {string} queryType - The type of query ('single' or 'range').
+ * @param {Element} singleDateField - The single date field element.
+ * @param {Element} rangeDateFields - The range date fields element.
+ *
+ * @return {void}
+ */
 function toggleDateFields(queryType, singleDateField, rangeDateFields) {
     if (queryType === 'single') {
         toggleVisibility(singleDateField, 'visible');
@@ -42,15 +58,38 @@ function toggleDateFields(queryType, singleDateField, rangeDateFields) {
     }
 }
 
+/**
+ * Toggles the visibility of an element by adding or removing visibility classes.
+ *
+ * @param {HTMLElement} element - The element whose visibility needs to be toggled.
+ * @param {string} visibilityState - The new visibility state to be set (e.g., 'hidden', 'visible').
+ * @returns {void}
+ */
 function toggleVisibility(element, visibilityState) {
     element.classList.remove('hidden', 'visible');
     element.classList.add(visibilityState);
 }
 
+/**
+ * Attaches an event listener to a form element and handles the form submission.
+ *
+ * @function handleFormSubmission
+ * @returns {void}
+ */
 function handleFormSubmission() {
     document.getElementById('fxForm').addEventListener('submit', submitForm);
 }
 
+/**
+ * Submits a form by fetching FX rates from a given URL and
+ * prepares the data based on the selected currency.
+ *
+ * @param {Event} event - The form submission event.
+ *
+ * @return {Promise<void>} - A promise that resolves when the
+ *     fetch and data preparation processes are completed.
+ *     If an error occurs, the promise rejects with the error.
+ */
 async function submitForm(event) {
     event.preventDefault();  // Prevent default form submission
 
@@ -72,6 +111,11 @@ async function submitForm(event) {
     }
 }
 
+/**
+ * Builds a URL based on the form values of currency and query type.
+ *
+ * @return {string} The generated URL based on the form values.
+ */
 function buildUrlBasedOnFormValues() {
     const currency = document.getElementById('currency').value;
     const queryType = document.getElementById('queryType').value;
@@ -96,6 +140,13 @@ function buildUrlBasedOnFormValues() {
     return url;
 }
 
+/**
+ * Async function to prepare data for display and CSV export.
+ *
+ * @param {object} data - The data object containing rates or error.
+ * @param {string} currency - The currency code.
+ * @returns {void}
+ */
 async function prepareData(data, currency) {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '';  // Clear previous results
@@ -112,6 +163,16 @@ async function prepareData(data, currency) {
     }
 }
 
+/**
+ * Display FX rates for a specific currency within a given date range.
+ *
+ * @param {object} data - The data object containing the rates and date range.
+ * @param {string} currency - The currency code to display rates for.
+ * @param {HTMLElement} resultDiv - The HTML element where the rates will be displayed.
+ * @param {array} csvData - The array where the CSV data will be stored.
+ *
+ * @return {void}
+ */
 function displayRatesForDateRange(data, currency, resultDiv, csvData) {
     let resultHtml = `
         <h3>FX Rates for EUR${currency} from ${data.startDate} to ${data.endDate}:</h3>
@@ -140,6 +201,18 @@ function displayRatesForDateRange(data, currency, resultDiv, csvData) {
     addDownloadButtonListener(csvData, `FX_Rates_${currency}_${data.startDate}_to_${data.endDate}.csv`);
 }
 
+/**
+ * Displays the foreign exchange (FX) rate for a single date in a specified currency.
+ * It creates an HTML table with the FX rate information, and appends it to a specified resultDiv element.
+ * It also adds the FX rate data to a specified csvData array and appends a download button with the CSV file.
+ *
+ * @param {object} data - The FX rate data for the single date.
+ * @param {string} currency - The currency code for which the FX rate is being displayed.
+ * @param {HTMLElement} resultDiv - The HTML element where the result should be displayed.
+ * @param {array} csvData - The array of CSV data to which the FX rate data should be added.
+ *
+ * @return {void}
+ */
 function displayRateForSingleDate(data, currency, resultDiv, csvData) {
     const resultHtml = ` 
         <h3>FX Rate for EUR${currency} on ${data.date}:</h3>
@@ -164,12 +237,26 @@ function displayRateForSingleDate(data, currency, resultDiv, csvData) {
     addDownloadButtonListener(csvData, `FX_Rate_${currency}_${data.date}.csv`);
 }
 
+/**
+ * Adds a listener to the download button element.
+ *
+ * @param {string} csvData - The CSV data to be downloaded.
+ * @param {string} filename - The name of the downloaded file.
+ * @return {void}
+ */
 function addDownloadButtonListener(csvData, filename) {
     document.getElementById('downloadCSV').addEventListener('click', function() {
         downloadCSV(csvData, filename);
     });
 }
 
+/**
+ * Downloads a CSV file with the given data.
+ *
+ * @param {Array<Array<string|number>>} data - The data to be converted to CSV format.
+ * @param {string} filename - The name of the downloaded file.
+ * @return {void}
+ */
 function downloadCSV(data, filename) {
     // Prepare CSV content from the data
     let csvContent = "data:text/csv;charset=utf-8,"
